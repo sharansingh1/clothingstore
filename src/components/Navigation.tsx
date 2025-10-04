@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 import { motion, AnimatePresence } from 'framer-motion'
 import { ShoppingCart, User, Menu, X, Heart, Search, Sparkles } from 'lucide-react'
 import { useCart } from '@/contexts/CartContext'
@@ -18,6 +19,7 @@ export default function Navigation() {
   const [isSearchOpen, setIsSearchOpen] = useState(false)
   const [searchQuery, setSearchQuery] = useState('')
   const { state, dispatch } = useCart()
+  const pathname = usePathname()
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault()
@@ -59,7 +61,7 @@ export default function Navigation() {
                   key={item.name}
                   href={item.href}
                   className={`transition-colors duration-300 font-wasted-vindey font-medium tracking-wide z-50 relative ${
-                    item.name === 'HOME' 
+                    pathname === item.href 
                       ? 'text-white border-b-2 border-white pb-1' 
                       : 'text-white/80 hover:text-white'
                   }`}
